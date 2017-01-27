@@ -7,12 +7,23 @@
 //
 
 import UIKit
+import RxSwift  //1.RxSwiftをインポート
+import RxCocoa  //2.Rxcocoaインポート
+
+let disposeBag = DisposeBag()
 
 class ViewController: UIViewController {
+    
+    @IBOutlet weak var label:UILabel!
+    @IBOutlet var textField:UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        textField.text
+            .map{_ in "\($0)"}
+            .bindTo(label.rx.text)
+            .addDisposableTo(disposeBag)
     }
 
     override func didReceiveMemoryWarning() {
